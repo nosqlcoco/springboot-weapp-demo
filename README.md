@@ -19,7 +19,7 @@ wx.request({
     
     //return JSON format,like: {"content":"Your name is xiaoqiang"}
     success: function(res){
-		console.log(res.content);
+		console.log(res.data);
     },
     fail: function(res){
     
@@ -46,7 +46,7 @@ wx.uploadFile({
     formData: {},
     
     success: function(res){
-      console.log(res)
+      console.log(res.data)
     },
     
     fail: function(res){

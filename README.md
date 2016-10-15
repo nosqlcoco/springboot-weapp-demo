@@ -5,13 +5,13 @@
 
 <font color="red">注意：如果你是本地运行，需要修改为你本地对应的主机和端口。</font>
 
-这里提供公网接口，方便的大家测试： http://121.40.187.136:8090/; 长连接需使用ws协议
+这里提供公网接口，方便的大家测试： http://120.26.231.155:9090/; 长连接需使用ws协议
 
 #### 一、测试小程序wx.request接口
 ```javascript
 
 wx.request({
-	url: 'http://localhost:8090/weappservice/test',
+	url: 'http://localhost:9090/weappservice/test',
 	
     data: {'name':'xiaoqiang'},
     
@@ -34,7 +34,7 @@ wx.request({
 ```javascript
 
 wx.uploadFile({
-    url: 'http://localhost:8090/weappservice/uploadfile',
+    url: 'http://localhost:9090/weappservice/uploadfile',
     
     //文件临时路径
     filePath: tempFilePath,
@@ -83,7 +83,7 @@ wx.uploadFile({
 
 //发起websocket连接
 wx.connectSocket({
-	url: 'ws://localhost:8090/weappservice/websocket?name=xiaoqiang',
+	url: 'ws://localhost:9090/weappservice/websocket?name=xiaoqiang',
   	//这里写了参数，但是参数没有发送出去，大家可以试试，已经邮件反馈微信团队了，等待回复。所以把参数拼接在url后面。
   	data: {
   		'name1': 'xiaoqiang1'

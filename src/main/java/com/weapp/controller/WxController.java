@@ -43,7 +43,7 @@ public class WxController {
 	 * @throws IOException
 	 */
 	@RequestMapping("/uploadfile")
-	public Map<String,Object> upload(@RequestParam(value = "file", required = true) MultipartFile file) throws IOException{
+	public Map<String,Object> upload(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException{
 		Map<String,Object>retMap = new HashMap<String,Object>();
 		if(file == null){
 			retMap.put("errcode", "-1");

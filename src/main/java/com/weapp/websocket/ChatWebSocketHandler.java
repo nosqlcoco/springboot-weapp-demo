@@ -46,9 +46,14 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
 		if(!json.containsKey("user") || !json.containsKey("content")){
 			return;
 		}
-		//发送消息
-		sendChatMessage(json.getString("user"), json.getString("content"));
-		super.handleTextMessage(session, message);
+		try {
+			//发送消息
+			sendChatMessage(json.getString("user"), json.getString("content"));
+			super.handleTextMessage(session, message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@Override
@@ -106,7 +111,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
 		if (content == null){
 			return;
 		}
-		Boolean isOnline = false;
 		for (WebSocketSession session : sessions) {
 			if (!session.getAttributes().get("user").equals(userName)) {
 				if(session.isOpen()){
@@ -121,10 +125,6 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
 				}
 				break;
 			}
-		}
-		//用户不在线
-		if (!isOnline){
-			System.out.println("用户[" + userName + "]不在线");
 		}
 	}
 }

@@ -112,3 +112,5 @@ wx.sendSocketMessage({
     }
 })
 ```
+
+我的微信小程序DEMO：[weixin_smallexe](https://github.com/cocoli/weixin_smallexe)

@@ -30,9 +30,9 @@ public class WebSocketHandshakeInterceptor extends HttpSessionHandshakeIntercept
             HttpSession session = servletRequest.getServletRequest().getSession();
             if (session != null) {
                 //使用user区分WebSocketHandler，以便定向发送消息
-                String user = servletRequest.getServletRequest().getParameter("user");
-                if(null != user && !"".equals(user)){
-                	attributes.put("user", user);
+                String name = servletRequest.getServletRequest().getParameter("name");
+                if(null != name && !"".equals(name)){
+                	attributes.put("user", name);
                 }
                 
             }

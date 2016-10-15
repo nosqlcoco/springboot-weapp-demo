@@ -101,7 +101,7 @@ wx.onSocketMessage(function(res){
 	console.log(data);
 }),
 
-//发送消息,
+//发送消息,消息对象属性key(user和content)不能自定义。
 wx.sendSocketMessage({
     data: JSON.stringify({
       user: 'xiaoqaing',

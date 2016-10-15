@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan(basePackages="com.xundaowei")
+@ComponentScan(basePackages="com.weapp")
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

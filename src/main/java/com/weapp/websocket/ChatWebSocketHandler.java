@@ -38,7 +38,14 @@ public class ChatWebSocketHandler extends TextWebSocketHandler{
 		if(StringUtils.isEmpty(cont)){
 			return;
 		}
+		//校验JSON格式
+		if(!cont.startsWith("{") || !cont.endsWith("}")){
+			return;
+		}
 		JSONObject json = JSON.parseObject(cont);
+		if(!json.containsKey("user") || !json.containsKey("content")){
+			return;
+		}
 		//发送消息
 		sendChatMessage(json.getString("user"), json.getString("content"));
 		super.handleTextMessage(session, message);

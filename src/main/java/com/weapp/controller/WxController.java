@@ -30,7 +30,7 @@ public class WxController {
 	 * @param name
 	 * @return Map
 	 */
-	@RequestMapping("/get")
+	@RequestMapping("/test")
 	public Map<String,String> test(@RequestParam(defaultValue="",required=false,value="name")String name){
 		Map<String,String>map = new HashMap<String, String>();
 		map.put("content", "Your name is " + name);
@@ -42,7 +42,7 @@ public class WxController {
 	 * @return Map
 	 * @throws IOException
 	 */
-	@RequestMapping("/uploadFile")
+	@RequestMapping("/uploadfile")
 	public Map<String,Object> upload(@RequestParam(value = "file", required = true) MultipartFile file) throws IOException{
 		Map<String,Object>retMap = new HashMap<String,Object>();
 		if(file == null){

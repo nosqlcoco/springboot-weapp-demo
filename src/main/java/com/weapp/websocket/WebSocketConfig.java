@@ -21,8 +21,8 @@ public class WebSocketConfig extends WebMvcConfigurerAdapter implements WebSocke
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		//注册通道
-		registry.addHandler(chatWebSocketHandler(),"/webSocket").setAllowedOrigins("*").addInterceptors(myInterceptor());
-		registry.addHandler(chatWebSocketHandler(), "/sockjs/webSocket").setAllowedOrigins("*").addInterceptors(myInterceptor()).withSockJS();
+		registry.addHandler(chatWebSocketHandler(),"/websocket").setAllowedOrigins("*").addInterceptors(myInterceptor());
+		registry.addHandler(chatWebSocketHandler(), "/sockjs/websocket").setAllowedOrigins("*").addInterceptors(myInterceptor()).withSockJS();
 	}
 	//消息处理Handler
 	@Bean

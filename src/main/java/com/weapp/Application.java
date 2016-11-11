@@ -32,6 +32,6 @@ public class Application implements CommandLineRunner{
 	public void run(String... arg0) throws Exception {
 		Map<String,Integer>map = new HashMap<String,Integer>();
 		map.put("url", 2222);
-		repository.save(new AppKey("sddd", "sdsd", new Date(), new Date(), false, map));
+		repository.save(new AppKey("sddd", "sdsd", new Date(), new Date(), "1", false, map));
 	}
 }

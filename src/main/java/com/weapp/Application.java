@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 import com.weapp.entity.auth.AppKey;
 import com.weapp.repository.AppKeyRepository;
@@ -19,6 +20,7 @@ import com.weapp.repository.AppKeyRepository;
  * @blog http://nosqlcoco.cnblogs.com
  * @since 2016-10-15
  */
+@ServletComponentScan
 @SpringBootApplication(scanBasePackages={"com.weapp"})
 public class Application implements CommandLineRunner{
 	@Autowired

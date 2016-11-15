@@ -10,4 +10,5 @@ import com.weapp.entity.auth.AppKey;
  */
 public interface AppKeyRepository extends MongoRepository<AppKey, String> {
 	
+	AppKey findByAppId(String appId);
 }

@@ -11,4 +11,6 @@ import com.weapp.entity.auth.ApiInfo;
  */
 public interface ApiInfoRepository extends MongoRepository<ApiInfo, String> {
 
+	ApiInfo findByName(String apiName);
+
 }

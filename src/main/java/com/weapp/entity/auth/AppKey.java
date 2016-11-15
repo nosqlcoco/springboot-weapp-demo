@@ -34,10 +34,10 @@ public class AppKey {
 	/*是否禁用*/	
 	private Boolean disabled;
 	/*拥有的api，及调用次数上限*/	
-	private Map<String,Integer> apis;
+	private Map<String, Map<String,Integer>> apis;
 
 	public AppKey(String appId, String secretKey, Date createDate, Date validDate, String appGrade, Boolean disabled,
-			Map<String, Integer> apis) {
+			Map<String, Map<String,Integer>> apis) {
 		super();
 		this.appId = appId;
 		this.secretKey = secretKey;

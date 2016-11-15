@@ -1,5 +1,7 @@
 package com.weapp.entity.auth;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -22,6 +24,13 @@ public class ApiInfo {
 	private String name;
 	/*接口地址*/
 	private String uri;
+	/*权限之和
+	 * Get = 1
+	 * POST = 2 
+	 * PUT = 4
+	 * DELETE = 8
+	 */
+	private Integer crud;
 	/*每天调用次数上限*/
 	private Integer accessLimit;
 	/*版本号*/	
@@ -30,7 +39,9 @@ public class ApiInfo {
 	private boolean disabled;
 	/*解密算法*/	
 	private String algorithm;
-	public ApiInfo(String name,String uri, Integer accessLimit, String version, boolean disabled, String algorithm) {
+	
+	private Date createDate;
+	public ApiInfo(String name,String uri, Integer accessLimit, String version, boolean disabled, String algorithm, Date createDate) {
 		super();
 		this.name = name;
 		this.uri = uri;
@@ -38,5 +49,6 @@ public class ApiInfo {
 		this.version = version;
 		this.disabled = disabled;
 		this.algorithm = algorithm;
+		this.createDate = createDate;
 	}
 }

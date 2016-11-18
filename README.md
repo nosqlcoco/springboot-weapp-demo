@@ -4,20 +4,25 @@
 运行环境：JDK8+
 
 <font color="red">注意：如果你是本地运行，需要修改为你本地对应的主机和端口。</font>
+; 长连接需使用ws协议
 
-这里提供公网接口，方便的大家测试： http://120.26.231.155:9090/; 长连接需使用ws协议
+####更新日志:
+
+- 2016-11-18
+	- 重写小程序http测试和上传文件接口
+	- 统一接口返回返回状态码和格式
 
 #### 一、测试小程序wx.request接口
 ```javascript
 
 wx.request({
-	url: 'http://localhost:9090/weappservice/test',
+	url: 'http://localhost:9090/weappservice/api/v1/user/get/{id}',
 	
-    data: {'name':'xiaoqiang'},
+    data: {appId: 'JWEJIJ345QHWJKENVKF', apiName: 'GET_USER'},
     
-    method: 'GET',//or POST
+    method: 'GET',
     
-    //return JSON format,like: {"content":"Your name is xiaoqiang"}
+    //return JSON format,like: {"id":"{id}"}
     success: function(res){
 		console.log(res.data);
     },
@@ -34,7 +39,7 @@ wx.request({
 ```javascript
 
 wx.uploadFile({
-    url: 'http://localhost:9090/weappservice/uploadfile',
+    url: 'http://localhost:9090/weappservice/api/v1/upload/image',
     
     //文件临时路径
     filePath: tempFilePath,
@@ -43,7 +48,7 @@ wx.uploadFile({
     
     header: {},
     
-    formData: {},
+    formData: {appId: 'JWEJIJ345QHWJKENVKF', apiName: 'UPLOAD_IMAGE'},
     
     success: function(res){
       console.log(res.data)
@@ -69,11 +74,11 @@ wx.uploadFile({
 		<td>图片路径</td>
 	</tr>
 	<tr>
-		<td>-1</td>
+		<td>-40010</td>
 		<td>请选择上传文件!</td>
 	</tr>
 	<tr>
-		<td>-2</td>
+		<td>-40011</td>
 		<td>文件上传失败</td>
 	</tr>
 </table>

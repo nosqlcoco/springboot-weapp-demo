@@ -72,7 +72,7 @@ public class Application implements CommandLineRunner{
 		apiMap.put(ApiConstant.POST_USER, map2);
 		apiMap.put(ApiConstant.PUT_USER, map3);
 		apiMap.put(ApiConstant.DELETE_USER, map4);
-		repository.save(new AppKey("test123", "sdsd", new Date(), new Date(), "1", false, apiMap));
+		repository.save(new AppKey("JWEJIJ345QHWJKENVKF", "sdsd", new Date(), new Date(), "1", false, apiMap));
 	}
 	@Bean
 	public ImmutableMap<String, String> errorCodeMap(){

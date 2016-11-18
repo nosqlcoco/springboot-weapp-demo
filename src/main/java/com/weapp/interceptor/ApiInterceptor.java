@@ -28,7 +28,7 @@ public class ApiInterceptor implements HandlerInterceptor {
 	@Autowired
 	private ApiInfoService apiInfoService;
 	@Autowired
-	ImmutableMap<String, String> errorCodeMap;
+	private ImmutableMap<String, String> errorCodeMap;
 	@Override
 	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
@@ -43,7 +43,7 @@ public class ApiInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) throws Exception {
-		
+
 		String apiName = request.getParameter("apiName");
 		if(null == apiName || "".equals(apiName)){
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -54,9 +54,9 @@ public class ApiInterceptor implements HandlerInterceptor {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			return false;
 		}
-	    response.setCharacterEncoding("UTF-8");  
-	    response.setContentType("application/json; charset=utf-8"); 
-	    PrintWriter out = null;
+		response.setCharacterEncoding("UTF-8");  
+		response.setContentType("application/json; charset=utf-8"); 
+		PrintWriter out = null;
 		//判断接口状态；
 		if(apiInfo.isDisabled()){
 			//接口已禁用
@@ -66,7 +66,7 @@ public class ApiInterceptor implements HandlerInterceptor {
 			out.close();
 			return false;
 		}
-		
+
 		String method = request.getMethod();
 		if(Integer.compare(methodMap.get(method), apiInfo.getCrud()) != 0){
 			//http method不匹配 apiInfo.getCrud()
@@ -114,7 +114,7 @@ public class ApiInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		//参数校验
-		
+
 		//通过，更新调用次数
 		methodInfo.put("calltimes", methodInfo.get("calltimes") + 1);
 		apiMap.put(apiName, methodInfo);

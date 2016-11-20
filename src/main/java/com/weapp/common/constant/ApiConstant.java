@@ -23,4 +23,13 @@ public class ApiConstant {
 	
 	/*上传图片*/	
 	public final static String UPLOAD_IMAGE = "UPLOAD_IMAGE";
+	
+	/*微信code*/
+	public static final String WX_CODE = "WX_CODE";
+	
+	/*校验微信用户信息完整性*/
+	public static final String WX_CHECK_USER = "WX_CHECK_USER";
+
+	/*解密用户信息*/
+	public static final String WX_DECODE_USERINFO = "WX_DECODE_USERINFO";
 }

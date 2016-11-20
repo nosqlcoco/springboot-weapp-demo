@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -29,6 +30,7 @@ import com.weapp.repository.AppKeyRepository;
  */
 @ServletComponentScan
 @SpringBootApplication(scanBasePackages={"com.weapp"})
+@EnableConfigurationProperties
 public class Application implements CommandLineRunner{
 	@Autowired
 	private AppKeyRepository repository;

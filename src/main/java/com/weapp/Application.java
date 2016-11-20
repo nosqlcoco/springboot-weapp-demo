@@ -18,6 +18,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.weapp.common.constant.ApiConstant;
+import com.weapp.common.properties.WxAuth;
 import com.weapp.entity.auth.AppKey;
 import com.weapp.repository.AppKeyRepository;
 
@@ -30,7 +31,7 @@ import com.weapp.repository.AppKeyRepository;
  */
 @ServletComponentScan
 @SpringBootApplication(scanBasePackages={"com.weapp"})
-@EnableConfigurationProperties
+@EnableConfigurationProperties(value={WxAuth.class})
 public class Application implements CommandLineRunner{
 	@Autowired
 	private AppKeyRepository repository;

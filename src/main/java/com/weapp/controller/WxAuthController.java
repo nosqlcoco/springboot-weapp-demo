@@ -20,23 +20,28 @@ import com.weapp.common.constant.ApiConstant;
 import com.weapp.redis.RedisUtil;
 import com.weapp.service.WxService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class WxAuthController extends BaseController{
 	@Autowired
 	private WxService wxService;
 	@Autowired
 	private RedisUtil redisUtil;
-	
+
 	/**
 	 * 根据客户端传过来的code从微信服务器获取appid和session_key，然后生成3rdkey返回给客户端，后续请求客户端传3rdkey来维护客户端登录态
 	 * @param wxCode	小程序登录时获取的code
 	 * @return
 	 */
+	@ApiOperation(value = "获取sessionId", notes = "小用户允许登录后，使用code 换取 session_key api，将 code 换成 openid 和 session_key")
+	@ApiImplicitParam(name = "code", value = "用户登录回调内容会带上 ", required = true, dataType = "String")
 	@Api(name = ApiConstant.WX_CODE)
-	@RequestMapping(value = "${api.v1}/wx/getSession", method = RequestMethod.GET, produces = "application/json")
-	public Map<String,Object> createSssion(@RequestParam(required = true,value = "wxcode")String wxCode){
+	@RequestMapping(value = "/api/v1/wx/getSession", method = RequestMethod.GET, produces = "application/json")
+	public Map<String,Object> createSssion(@RequestParam(required = true,value = "code")String wxCode){
 		Map<String,Object> wxSessionMap = wxService.getWxSession(wxCode);
-		
+
 		if(null == wxSessionMap){
 			return rtnParam(50010, null);
 		}
@@ -50,7 +55,7 @@ public class WxAuthController extends BaseController{
 		String thirdSesion = wxService.create3rdSession(wxOpenId, wxSessionKey, expires);
 		return rtnParam(0, ImmutableMap.of("sessionId",thirdSesion));
 	}
-	
+
 	/**
 	 * 验证用户信息完整性
 	 * @param rawData	微信用户基本信息
@@ -59,7 +64,7 @@ public class WxAuthController extends BaseController{
 	 * @return
 	 */
 	@Api(name = ApiConstant.WX_CHECK_USER)
-	@RequestMapping(value = "${api.v1}/wx/checkUserInfo", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/api/v1/wx/checkUserInfo", method = RequestMethod.GET, produces = "application/json")
 	public Map<String,Object> checkUserInfo(@RequestParam(required = true,value = "rawData")String rawData,
 			@RequestParam(required = true,value = "signature")String signature,
 			@RequestParam(required = true,defaultValue = "sessionId")String sessionId){
@@ -71,13 +76,13 @@ public class WxAuthController extends BaseController{
 		String sessionKey = wxSessionStr.split("#")[0];
 		StringBuffer sb = new StringBuffer(rawData);
 		sb.append(sessionKey);
-		
+
 		byte[] encryData = DigestUtils.sha1(sb.toString());
 		byte[] signatureData = signature.getBytes();
 		Boolean checkStatus = Arrays.equals(encryData, signatureData);
 		return rtnParam(0, ImmutableMap.of("checkPass", checkStatus));
 	}
-	
+
 	/**
 	 * 获取用户openId和union数据
 	 * @param encryptedData 加密数据
@@ -86,11 +91,11 @@ public class WxAuthController extends BaseController{
 	 * @return
 	 */
 	@Api(name = ApiConstant.WX_DECODE_USERINFO)
-	@RequestMapping(value = "${api.v1}/wx/decodeUserInfo", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/api/v1/wx/decodeUserInfo", method = RequestMethod.GET, produces = "application/json")
 	public Map<String,Object> decodeUserInfo(@RequestParam(required = true,value = "encryptedData")String encryptedData,
 			@RequestParam(required = true,defaultValue = "iv")String iv,
 			@RequestParam(required = true,defaultValue = "sessionId")String sessionId){
-		
+
 		//从缓存中获取session_key
 		Object wxSessionObj = redisUtil.get(sessionId);
 		if(null == wxSessionObj){
@@ -98,7 +103,7 @@ public class WxAuthController extends BaseController{
 		}
 		String wxSessionStr = (String)wxSessionObj;
 		String sessionKey = wxSessionStr.split("#")[0];
-		
+
 		try {
 			AES aes = new AES();
 			byte[] resultByte = aes.decrypt(encryptedData.getBytes(), Base64.decodeBase64(sessionKey), iv.getBytes());

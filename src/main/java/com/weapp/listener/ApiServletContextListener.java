@@ -9,6 +9,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -31,6 +32,7 @@ import com.weapp.service.ApiInfoService;
  *
  */
 @WebListener
+@Component
 public class ApiServletContextListener implements ServletContextListener {
 	private static ImmutableMap<String,Integer>methodMap = ImmutableMap.of("GET", 1, "POST", 2, "PUT", 4, "DELETE", 8);
 	@Override

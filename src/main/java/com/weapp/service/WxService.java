@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.weapp.common.HttpRequest;
 import com.weapp.common.properties.WxAuth;
+import com.weapp.common.util.HttpRequest;
 import com.weapp.redis.RedisUtil;
 
 @Service

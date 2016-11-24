@@ -2,6 +2,7 @@ package com.weapp.websocket;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.server.ServerHttpRequest;
@@ -10,6 +11,8 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
+import com.alibaba.fastjson.JSON;
 
 /**
  * websocket拦截器
@@ -30,7 +33,9 @@ public class WebSocketHandshakeInterceptor extends HttpSessionHandshakeIntercept
             HttpSession session = servletRequest.getServletRequest().getSession();
             if (session != null) {
                 //使用user区分WebSocketHandler，以便定向发送消息
-                String name = servletRequest.getServletRequest().getParameter("name");
+            	HttpServletRequest req = servletRequest.getServletRequest();
+                String name = req.getParameter("name");
+                System.out.println(JSON.toJSONString(req.getParameterNames()));
                 if(null != name && !"".equals(name)){
                 	attributes.put("user", name);
                 }

@@ -75,12 +75,23 @@ public class Application implements CommandLineRunner{
 		Map<String,Integer>map4 = new HashMap<String,Integer>();
 		map4.put("calltimes", 0);
 		map4.put("alltimes", 10000);
+		
+		Map<String,Integer>map5 = new HashMap<String,Integer>();
+		map5.put("calltimes", 0);
+		map5.put("alltimes", 10000);
+		
+		Map<String,Integer>map6 = new HashMap<String,Integer>();
+		map6.put("calltimes", 0);
+		map6.put("alltimes", 10000);
 
 		Map<String, Map<String,Integer>> apiMap = Maps.newHashMap();
 		apiMap.put(ApiConstant.GET_USER, map1);
 		apiMap.put(ApiConstant.POST_USER, map2);
 		apiMap.put(ApiConstant.PUT_USER, map3);
 		apiMap.put(ApiConstant.DELETE_USER, map4);
+		apiMap.put(ApiConstant.WX_CODE, map5);
+		apiMap.put(ApiConstant.WX_DECODE_USERINFO, map6);
+		
 		repository.save(new AppKey("JWEJIJ345QHWJKENVKF", "sdsd", new Date(), new Date(), "1", false, apiMap));
 	}
 	@Bean

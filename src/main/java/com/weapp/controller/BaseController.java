@@ -23,7 +23,7 @@ public abstract class BaseController {
 		if(errorCode == 0){
 			return ImmutableMap.of("errorCode", errorCode,"data", (data == null)? new Object() : data);
 		}else{
-			return ImmutableMap.of("errorCode", errorCode, "msg", errorCodeMap.get(String.valueOf(errorCodeMap)));
+			return ImmutableMap.of("errorCode", errorCode, "msg", errorCodeMap.get(String.valueOf(errorCode)));
 		}
 	}
 }

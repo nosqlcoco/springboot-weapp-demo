@@ -51,7 +51,7 @@ public class WxAuthController extends BaseController{
 		}
 		String wxOpenId = (String)wxSessionMap.get("openid");
 		String wxSessionKey = (String)wxSessionMap.get("session_key");
-		Long expires = (Long) wxSessionMap.get("wxSessionMap");
+		Long expires = Long.valueOf(String.valueOf(wxSessionMap.get("expires_in")));
 		String thirdSesion = wxService.create3rdSession(wxOpenId, wxSessionKey, expires);
 		return rtnParam(0, ImmutableMap.of("sessionId",thirdSesion));
 	}
@@ -106,7 +106,7 @@ public class WxAuthController extends BaseController{
 
 		try {
 			AES aes = new AES();
-			byte[] resultByte = aes.decrypt(encryptedData.getBytes(), Base64.decodeBase64(sessionKey), iv.getBytes());
+			byte[] resultByte = aes.decrypt(Base64.decodeBase64(encryptedData), Base64.decodeBase64(sessionKey), Base64.decodeBase64(iv));
 			if(null != resultByte && resultByte.length > 0){
 				String userInfo = new String(resultByte, "UTF-8");
 				return rtnParam(0, userInfo);

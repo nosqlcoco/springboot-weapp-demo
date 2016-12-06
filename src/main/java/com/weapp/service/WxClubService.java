@@ -21,6 +21,7 @@ import com.weapp.repository.WxClubRepository;
 public class WxClubService {
 	@Autowired
 	private WxClubRepository clubRepository;
+	private static final String CLUBHOST = "http://www.wxappclub.com";
 	
 	private static final String WX_CLUB_HOST = "http://www.wxappclub.com";
 	private static final String[] paths = {"/column/1","/column/2","/column/3","/column/4","/column/5","/column/6","/column/7","/column/8","/column/10"};
@@ -51,11 +52,19 @@ public class WxClubService {
 				detailPath = titleEle.absUrl("href");
 				title = titleEle.text();
 				
-				
 				authorMap = Maps.newHashMap();
 				Document detailDoc = Jsoup.connect(detailPath).get();
 				if(detailDoc != null){
-					content = detailDoc.select(".topic_content").html();
+					Element detailEl = detailDoc.select(".topic_content").first();
+					Elements imgEls = detailEl.select("img[src]");
+					
+					for (Element el : imgEls) {
+						String imgUrl = el.attr("src");
+						imgUrl =CLUBHOST + "/" +imgUrl;
+						el.attr("src", imgUrl);
+					}
+					
+					content = detailEl.html();
 					String headimg = detailDoc.select(".panel-body p .avatar").first().absUrl("src");
 					String nickname = detailDoc.select(".panel-body p .username").first().text();
 					
@@ -113,12 +122,26 @@ public class WxClubService {
 		}
 		clubRepository.save(list);
 	}
+	/**
+	 * 清空
+	 */
 	public void deleteAll() {
 		clubRepository.deleteAll();
 	}
+	/**
+	 * 根据专栏ID搜索
+	 * @param groupPath
+	 * @return
+	 */
 	public List<Article> getByGroupPath(String groupPath) {
 		return clubRepository.findByGroupPath(groupPath);
 	}
+	/**
+	 * 根据文章标题模糊搜索（分页）
+	 * @param title
+	 * @param page
+	 * @return
+	 */
 	public List<Article> getByTitle(String title, MongoPageable page) {
 		return clubRepository.findByTitleLike(title,page);
 	}

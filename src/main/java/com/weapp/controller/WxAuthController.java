@@ -22,7 +22,11 @@ import com.weapp.service.WxService;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-
+/**
+ * 微信用户认证相关
+ * @author xiaoqiang
+ *
+ */
 @RestController
 public class WxAuthController extends BaseController{
 	@Autowired

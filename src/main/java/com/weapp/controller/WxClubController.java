@@ -15,20 +15,25 @@ import com.weapp.common.constant.ApiConstant;
 import com.weapp.common.util.MongoPageable;
 import com.weapp.entity.wxclub.Article;
 import com.weapp.service.WxClubService;
-
+/**
+ * 微信小程序Club专栏文章接口
+ * @site http://www.wxappclub.com
+ * @author xiaoqiang
+ *
+ */
 @RestController
 public class WxClubController extends BaseController{
 	@Autowired
 	private WxClubService wxClubService;
 	
 	/**
-	 * 专栏文字列表
+	 * 专栏文章列表
 	 * @param id
 	 * @param page
 	 * @return
 	 */
 	@Api(name = ApiConstant.WX_CLUB_ARTICLES)
-	@RequestMapping(value = "/api/v1/wxclub/column/{id}-{page}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/api/v1/wxclub/column/{id}/{page}", method = RequestMethod.GET, produces = "application/json")
 	public Map<String, ? extends Object>getArticles(@PathVariable String id,@PathVariable Integer page){
 		List<Article>list = wxClubService.getByGroupPath("/column/" + id);
 		return rtnParam(0, list);

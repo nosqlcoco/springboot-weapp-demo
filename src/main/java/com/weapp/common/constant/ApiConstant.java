@@ -32,4 +32,10 @@ public class ApiConstant {
 
 	/*解密用户信息*/
 	public static final String WX_DECODE_USERINFO = "WX_DECODE_USERINFO";
+	
+	/* club社区专栏 */	
+	public static final String WX_CLUB_ARTICLES = "WX_CLUB_ARTICLES";
+	
+	/* club社区专栏文章搜索 */
+	public static final String WX_CLUB_SEARCH = "WX_CLUB_SEARCH";
 }

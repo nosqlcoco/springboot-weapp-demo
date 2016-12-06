@@ -1,5 +1,5 @@
 # springboot-weapp-demo
-微信小程序服务端接口，支持普通Http请求、上传文件、长连接。后台服务使用springboot框架搭建，mongodb做数据库，redis做缓存。
+微信小程序服务端接口，支持普通Http请求、上传文件、长连接,微信登录及敏感数据解密。后台服务使用springboot框架搭建，mongodb做数据库，redis做缓存。
 
 运行环境：JDK8+
 

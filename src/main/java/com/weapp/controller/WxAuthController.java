@@ -51,9 +51,10 @@ public class WxAuthController extends BaseController{
 		}
 		String wxOpenId = (String)wxSessionMap.get("openid");
 		String wxSessionKey = (String)wxSessionMap.get("session_key");
+		System.out.println(wxSessionKey);
 		Long expires = Long.valueOf(String.valueOf(wxSessionMap.get("expires_in")));
-		String thirdSesion = wxService.create3rdSession(wxOpenId, wxSessionKey, expires);
-		return rtnParam(0, ImmutableMap.of("sessionId",thirdSesion));
+		String thirdSession = wxService.create3rdSession(wxOpenId, wxSessionKey, expires);
+		return rtnParam(0, ImmutableMap.of("sessionId",thirdSession));
 	}
 
 	/**
@@ -84,7 +85,7 @@ public class WxAuthController extends BaseController{
 	}
 
 	/**
-	 * 获取用户openId和union数据
+	 * 获取用户openId和unionId数据(如果没绑定微信开放平台，解密数据中不包含unionId)
 	 * @param encryptedData 加密数据
 	 * @param iv			加密算法的初始向量	
 	 * @param sessionId		会话ID
@@ -95,7 +96,8 @@ public class WxAuthController extends BaseController{
 	public Map<String,Object> decodeUserInfo(@RequestParam(required = true,value = "encryptedData")String encryptedData,
 			@RequestParam(required = true,defaultValue = "iv")String iv,
 			@RequestParam(required = true,defaultValue = "sessionId")String sessionId){
-
+		System.out.println(encryptedData);
+		System.out.println(iv);
 		//从缓存中获取session_key
 		Object wxSessionObj = redisUtil.get(sessionId);
 		if(null == wxSessionObj){

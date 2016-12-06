@@ -1,5 +1,6 @@
 package com.weapp.listener;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import com.google.common.collect.Lists;
 import com.weapp.common.annotation.Api;
 import com.weapp.entity.auth.ApiInfo;
 import com.weapp.service.ApiInfoService;
+import com.weapp.service.WxClubService;
 /**
  * Get == 1
  * POST == 2 
@@ -45,7 +47,7 @@ public class ApiServletContextListener implements ServletContextListener {
 		WebApplicationContext wc = WebApplicationContextUtils.getRequiredWebApplicationContext(arg0.getServletContext());
 		
 		ApiInfoService apiInfoService = wc.getBean(ApiInfoService.class);
-		apiInfoService.deleteAll();
+		WxClubService clubService = wc.getBean(WxClubService.class);
 		
 		RequestMappingHandlerMapping rmhp = wc.getBean(RequestMappingHandlerMapping.class);  
 		Map<RequestMappingInfo, HandlerMethod> map = rmhp.getHandlerMethods();
@@ -75,7 +77,14 @@ public class ApiServletContextListener implements ServletContextListener {
 			apiInfo.setCreateDate(curDate);
 			apiInfolist.add(apiInfo);
 		}  
+		apiInfoService.deleteAll();
 		apiInfoService.saveList(apiInfolist);
+		
+		clubService.deleteAll();
+		try {
+			clubService.getWxClubColumn();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
 }

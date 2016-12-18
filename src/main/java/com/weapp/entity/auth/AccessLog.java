@@ -22,6 +22,8 @@ public class AccessLog {
 	private String id;
 	/*api名称*/	
 	private String apiName;
+	/*接口路径*/
+	private String uri;
 	/*访问时间*/	
 	private Date accessDate;
 	/*请求参数*/	
@@ -31,9 +33,10 @@ public class AccessLog {
 	/*异常内容*/	
 	private String exp;
 
-	public AccessLog(String apiName, Date accessDate, String reqParam, String resParam, String exp) {
+	public AccessLog(String apiName, String uri, Date accessDate, String reqParam, String resParam, String exp) {
 		super();
 		this.apiName = apiName;
+		this.uri = uri;
 		this.accessDate = accessDate;
 		this.reqParam = reqParam;
 		this.resParam = resParam;

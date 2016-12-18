@@ -1,18 +1,22 @@
 package com.weapp.interceptor;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.collect.ImmutableMap;
+import com.weapp.entity.auth.AccessLog;
 import com.weapp.entity.auth.ApiInfo;
 import com.weapp.entity.auth.AppKey;
+import com.weapp.service.AccessLogService;
 import com.weapp.service.ApiInfoService;
 import com.weapp.service.AppKeyService;
 
@@ -29,10 +33,36 @@ public class ApiInterceptor implements HandlerInterceptor {
 	private ApiInfoService apiInfoService;
 	@Autowired
 	private ImmutableMap<String, String> errorCodeMap;
+	@Autowired
+	private AccessLogService accessLogService;
+	
 	@Override
-	public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object arg2, Exception exp)
 			throws Exception {
-
+		String apiName = request.getParameter("apiName");
+		if(!StringUtils.isEmpty(apiName)){
+			AccessLog accessLog = new AccessLog();
+			accessLog.setAccessDate(new Date());
+			accessLog.setApiName(apiName);
+			accessLog.setUri(request.getRequestURI());
+			if(exp != null){
+				accessLog.setExp(exp.getMessage());
+			}
+			//拼接请求参数，key1=value1&key2=value2的形式
+			String paramStr = "";
+			Map<String,String[]> params = request.getParameterMap();
+			if (params != null && params.size() > 0) {
+				for(Map.Entry<String, String[]> p : params.entrySet()){
+					if(p.getValue() == null || p.getValue().length == 0){
+						continue;
+					}
+					paramStr += p.getKey() + "=" + p.getValue()[0] + "&";
+				}
+			}
+			accessLog.setReqParam(paramStr.substring(0, paramStr.length() - 1));
+			System.out.println(accessLog.getReqParam());
+			accessLogService.save(accessLog);
+		}
 	}
 
 	@Override

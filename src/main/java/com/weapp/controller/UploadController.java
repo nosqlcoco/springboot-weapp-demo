@@ -41,8 +41,9 @@ public class UploadController extends BaseController{
 		String random = RandomStringUtils.randomAlphabetic(16);
 		String fileName = random + ".jpg";
 		try {
+			String uoloadDirName = imgLocalPath.substring(imgLocalPath.lastIndexOf("/"), imgLocalPath.length());
 			FileCopyUtils.copy(file.getBytes(), new File(imgLocalPath + "/", fileName));
-			return rtnParam(0, ImmutableMap.of("url", imgHost + "/" + fileName));
+			return rtnParam(0, ImmutableMap.of("url", imgHost + uoloadDirName + "/" + fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -132,3 +132,7 @@ wx.sendSocketMessage({
 ```
 
 我的微信小程序DEMO：[weixin_smallexe](https://github.com/cocoli/weixin_smallexe)
+
+PS:我的公众号：
+
+![](https://github.com/cocoli/weixin_smallexe/blob/master/screenshot/dingyuhao.JPG?raw=true)

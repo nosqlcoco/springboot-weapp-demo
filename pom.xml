@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<bcprov.version>1.54</bcprov.version>
+		<bcprov.version>1.67</bcprov.version>
 		<swagger2.version>2.2.2</swagger2.version>
 		<jsoup.version>1.8.3</jsoup.version>
 	</properties>

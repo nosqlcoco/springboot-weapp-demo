@@ -23,7 +23,7 @@
 		<java.version>1.8</java.version>
 		<bcprov.version>1.54</bcprov.version>
 		<swagger2.version>2.2.2</swagger2.version>
-		<jsoup.version>1.8.3</jsoup.version>
+		<jsoup.version>1.14.2</jsoup.version>
 	</properties>
 	<dependencies>
 		<dependency>
